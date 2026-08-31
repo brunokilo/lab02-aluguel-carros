@@ -1,0 +1,11 @@
+Cliente efetuar pedido de aluguel de carro
+Cliente modificar pedido de aluguel de carro
+Cliente cancelar pedido de aluguel de carro
+Cliente aceitar contrato
+Cliente escolher modalidade contrato 
+
+Usuário cadastrar no sistema
+
+Agentes analisar pedidos recebidos
+Agentes avaliar pedidos recebidos
+Agentes registrar parecer pedidos recebidos
