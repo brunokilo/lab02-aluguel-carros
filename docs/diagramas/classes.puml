@@ -1,0 +1,37 @@
+@startuml diagrama_de_classes_aluguel_de_carros
+
+class Agente{
+
+}
+
+class Automevel{
+  -placa: String
+  -ano: Int
+  -marca: String
+  -modelo: String
+}
+
+class Contratante {
+  -RG: String
+  -CPF: String
+  -nome: String
+  -endereco: String
+  -profissão: String
+  -empregadores: List
+  -pedidos: List
+}
+
+class Contrato{
+
+}
+
+class Empregador{
+  -nome: String
+  -rendimento: Double
+}
+
+class Pedido{
+
+}
+
+@enduml
