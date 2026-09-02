@@ -1,7 +1,11 @@
-@startuml diagrama_de_classes_aluguel_de_carros
-
+@startuml
 class Agente{
+  -nome: String
+  +aprovarPedido(pedido Pedido): boolean
+}
 
+class Banco{
+  +aprovarContratoCredito(): boolean
 }
 
 class Automevel{
@@ -9,6 +13,8 @@ class Automevel{
   -ano: Int
   -marca: String
   -modelo: String
+  -emUso: boolean
+  +setEmUso(emUso boolean): boolean
 }
 
 class Contratante {
@@ -22,7 +28,21 @@ class Contratante {
 }
 
 class Contrato{
+  #contratante: Contratante
+  #automocel: Automevel
+  +reservaAutomovel(): void
+}
 
+class Locacao{
+  -dataInicio: LocalDate 
+  -dataFim: LocalDate 
+  +devolucaoAutomovel(): void
+}
+
+class Assinatura{
+  -valorMensalidade: Double 
+  -dataFim: LocalDate 
+  +devolucaoAutomovel(): void
 }
 
 class Empregador{
@@ -33,5 +53,4 @@ class Empregador{
 class Pedido{
 
 }
-
 @enduml
