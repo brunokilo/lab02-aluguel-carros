@@ -17,3 +17,13 @@ Como cliente, eu quero cunsultar um pedido de aluguel de carro para poder saber 
 
 ### HU05, Excluir pedido
 Como cliente, eu quero excluir um pedido de aluguel de carro para poder retirar o meu pedido, independento do motivo.
+
+### HU06, Aceitar parecer da avaliação
+Como cliente, eu quero poder decidir se aceito o parecer e prossigo ou não com o aluguel.
+
+### HU07, Analisar pedido de avaliação
+Como agente, eu quero poder visualizar os pedidos que estão aguardando avaliação.
+
+### HU08, Registrar parecer da avaliação financeira
+Como agente, eu quero poder aprovar um pedido e registrar o parecer sobre o emprestimo.
+
