@@ -4,20 +4,7 @@ class Agente{
   +aprovarPedido(pedido Pedido): boolean
 }
 
-class Banco{
-  +aprovarContratoCredito(): boolean
-}
-
-class Automevel{
-  -placa: String
-  -ano: Int
-  -marca: String
-  -modelo: String
-  -emUso: boolean
-  +setEmUso(emUso boolean): boolean
-}
-
-class Contratante {
+class Cliente{
   -RG: String
   -CPF: String
   -nome: String
@@ -27,10 +14,32 @@ class Contratante {
   -pedidos: List
 }
 
+class Banco{
+  -nome: String
+  +aprovarContratoCredito(): boolean
+}
+
+class Automovel{
+  -placa: String
+  -ano: Int
+  -marca: String
+  -modelo: String
+  -emUso: boolean
+  +setEmUso(emUso boolean): boolean
+}
+
+
 class Contrato{
-  #contratante: Contratante
-  #automocel: Automevel
+  -modalidade: ModalidadeContrato
+  -contratante: Cliente
+  -automovel: Automovel
   +reservaAutomovel(): void
+}
+
+enum ModalidadeContrato {
+  LOCACAO
+  ASSINATURA
+  LEASING
 }
 
 class Locacao{
@@ -51,6 +60,26 @@ class Empregador{
 }
 
 class Pedido{
-
+  -dataCriacao: LocalDate
+  +estaAvaliado(): boolean
 }
+
+enum StatusPedido {
+  CRIADO
+  AVALIADO
+  APROVADO
+  RECUSADO
+  CANCELADO
+}
+
+Pedido   "1"    -- "0..1" Contrato  
+Cliente  "1"    -- "1..n" Empregador
+Cliente  "1"    -- "0..*" Pedido
+Cliente -- Locacao
+Banco -- Locacao
+Locacao -- Assinatura
+Assinatura -- Automovel
+Agente  -- Banco
+Contrato "0..1" -- "1" Automovel
+
 @enduml
