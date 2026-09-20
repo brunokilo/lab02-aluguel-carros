@@ -2,32 +2,37 @@
 left to right direction
 skinparam packageStyle rectangle
 
+actor Usuario
+actor Cliente
+actor Agente
 
-actor cliente
-actor agente
+Cliente --|> Usuario
+Agente --|> Usuario
 
-rectangle "Sistema aluguel de carros" {   
-  usecase "UC01 - efetuar pedido" as UC01
-  usecase "UC02 - modificar pedido" as UC02
-  usecase "UC03 - cancelar pedido" as UC03
-  usecase "UC04 - analisar pedido" as UC04
-  usecase "UC05 - avaliar pedido" as UC05
-  usecase "UC06 - registrar parecer" as UC06
-  usecase "UC07 - aceitar contrato" as UC07
-  usecase "UC08 - escolher modalidade de contrato" as UC08
-  usecase "UC09 - gerenciar conta" as UC09
-  usecase "UC10 - consultar pedidos" as UC10
-}   
+rectangle "Sistema de aluguel de carros" {
+    usecase "UC01 - Efetuar pedido" as UC01
+    usecase "UC02 - Modificar pedido" as UC02
+    usecase "UC03 - Cancelar pedido" as UC03
+    usecase "UC04 - Analisar pedido" as UC04
+    usecase "UC05 - Avaliar pedido" as UC05
+    usecase "UC06 - Registrar parecer" as UC06
+    usecase "UC07 - Aceitar contrato" as UC07
+    usecase "UC08 - Escolher modalidade de contrato" as UC08
+    usecase "UC09 - Gerenciar conta" as UC09
+    usecase "UC10 - Consultar pedidos" as UC10
+}
 
-cliente --> (UC01)
-cliente --> (UC02)
-cliente --> (UC03)
-cliente --> (UC07)
-cliente --> (UC08)
-cliente --> (UC09)
-cliente --> (UC10)
-agente --> (UC04)
-agente --> (UC05)
-agente --> (UC06)
-(UC01) --> agente
+Usuario --> UC09
+
+Cliente --> UC01
+Cliente --> UC02
+Cliente --> UC03
+Cliente --> UC07
+Cliente --> UC08
+Cliente --> UC10
+
+Agente --> UC04
+Agente --> UC05
+Agente --> UC06
+
 @enduml
