@@ -1,6 +1,7 @@
 package com.alucar.alucar.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = { "http://localhost:5173" })
 public class ClienteController {
 
     private final ClienteService clienteService;
