@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.alucar.alucar.dto.ClienteDTO;
-import com.alucar.alucar.dto.EnderecoDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
