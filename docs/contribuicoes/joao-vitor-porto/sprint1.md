@@ -4,4 +4,4 @@ Conntribuição: auxiliei na construnção do brainstorm e na construção dos c
 
 ## Semana 2
 
-Conntribuição: fiz alguns ajustes no diagra de classes e montei a estrutura de pastas para o back e front
+Conntribuição: fiz alguns ajustes no diagra de classes e montei a estrutura de pastas para o back e front, também fiz o diagrama de pacotes
