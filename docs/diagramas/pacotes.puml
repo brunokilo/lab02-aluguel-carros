@@ -1,0 +1,75 @@
+@startuml diagrama_de_pacotes
+
+' =====================================================================
+' Sistema de Aluguel de Automoveis
+' Diagrama de Pacotes (Visao Logica)
+'
+' Dois subsistemas conforme o enunciado:
+' - Backend Spring Boot: gestao de pedidos, contratos e automoveis
+' - Frontend React: construcao dinamica das paginas web
+' =====================================================================
+
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+
+' ============================ SUBSISTEMAS ==============================
+
+package "frontend (React + TypeScript)" as frontend <<subsistema: construcao dinamica das paginas web>> {
+
+  package "pages" as fePages
+  package "components" as feComponents
+  package "services" as feServices
+}
+
+package "backend (Spring Boot)" as backend <<subsistema: gestao de pedidos e contratos>> {
+
+  package "com.alucar.alucar" {
+
+    package "controller" as controller
+    package "dto" as dto
+    package "model" as model
+    package "service" as service
+    package "repository" as repository
+  }
+}
+
+
+' ============================ DEPENDENCIAS =============================
+
+' ---------- Frontend ----------
+fePages ..> feComponents : usa
+fePages ..> feServices   : usa
+feComponents ..> feServices : usa
+
+' ---------- Backend ----------
+controller ..> service : usa
+controller ..> dto : recebe / devolve
+
+service ..> model : opera sobre
+service ..> dto : utiliza
+service ..> repository : usa
+
+repository ..> model : persiste
+
+' ---------- Comunicacao ----------
+feServices ..> controller : <<HTTP / JSON>>\nconsome API REST
+
+
+' =============================== NOTAS ================================
+
+note bottom of frontend
+  Aplicacao React + TypeScript.
+  "pages" representa as paginas da aplicacao,
+  "components" representa os componentes reutilizaveis
+  e "services" concentra as chamadas HTTP para a API REST.
+end note
+
+note bottom of backend
+  Expoe a API REST por meio de controllers e DTOs.
+  A camada service concentra as regras de negocio.
+  A camada repository realiza a persistencia dos dados.
+  A camada model representa as entidades do dominio.
+end note
+
+@enduml
