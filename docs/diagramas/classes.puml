@@ -1,85 +1,122 @@
 @startuml
-class Agente{
-  -nome: String
-  +aprovarPedido(pedido Pedido): boolean
+
+class Usuario {
+    -id: Long
+    -nome: String
 }
 
-class Cliente{
-  -RG: String
-  -CPF: String
-  -nome: String
-  -endereco: String
-  -profissão: String
-  -empregadores: List
-  -pedidos: List
+class Cliente {
+    -rg: String
+    -cpf: String
+    -profissao: String
+    -endereco: Endereco
+    -empregadores: List<Empregador>
+    -pedidos: List<Pedido>
 }
 
-class Banco{
-  -nome: String
-  +aprovarContratoCredito(): boolean
+class Agente {
+    -nome: String
 }
 
-class Automovel{
-  -placa: String
-  -ano: Int
-  -marca: String
-  -modelo: String
-  -emUso: boolean
-  +setEmUso(emUso boolean): boolean
+class Banco {
+    -nome: String
+    +aprovarContratoCredito(): boolean
 }
 
-
-class Contrato{
-  -modalidade: ModalidadeContrato
-  -contratante: Cliente
-  -automovel: Automovel
-  +reservaAutomovel(): void
+class Endereco {
+    -rua: String
+    -numero: String
+    -bairro: String
+    -cidade: String
+    -estado: String
+    -cep: String
 }
 
-enum ModalidadeContrato {
-  LOCACAO
-  ASSINATURA
-  LEASING
+class Empregador {
+    -nome: String
+    -rendimento: Double
 }
 
-class Locacao{
-  -dataInicio: LocalDate 
-  -dataFim: LocalDate 
-  +devolucaoAutomovel(): void
+class Pedido {
+    -dataCriacao: LocalDate
+    -status: StatusPedido
+    -parecer: Parecer
+    +estaAvaliado(): boolean
+    +cancelar(): void
 }
 
-class Assinatura{
-  -valorMensalidade: Double 
-  -dataFim: LocalDate 
-  +devolucaoAutomovel(): void
+abstract class Contrato {
+    -contratante: Cliente
+    -automovel: Automovel
+    +reservarAutomovel(): void
 }
 
-class Empregador{
-  -nome: String
-  -rendimento: Double
+class Locacao {
+    -dataInicio: LocalDate
+    -dataFim: LocalDate
+    +devolucaoAutomovel(): void
 }
 
-class Pedido{
-  -dataCriacao: LocalDate
-  +estaAvaliado(): boolean
+class Assinatura {
+    -valorMensalidade: Double
+    -dataFim: LocalDate
+    +devolucaoAutomovel(): void
+}
+
+class Leasing {
+    -contratoCredito: ContratoCredito
+}
+
+class ContratoCredito {
+    -numero: String
+    -aprovado: boolean
+}
+
+class Automovel {
+    -placa: String
+    -ano: Int
+    -marca: String
+    -modelo: String
+    -emUso: boolean
+    +setEmUso(emUso: boolean): void
 }
 
 enum StatusPedido {
-  CRIADO
-  AVALIADO
-  APROVADO
-  RECUSADO
-  CANCELADO
+    CRIADO
+    AVALIADO
+    APROVADO
+    RECUSADO
+    CANCELADO
 }
 
-Pedido   "1"    -- "0..1" Contrato  
-Cliente  "1"    -- "1..n" Empregador
-Cliente  "1"    -- "0..*" Pedido
-Cliente -- Locacao
-Banco -- Locacao
-Locacao -- Assinatura
-Assinatura -- Automovel
-Agente  -- Banco
+enum Parecer {
+    POSITIVO
+    NEGATIVO
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Agente
+
+Cliente "1" -- "1" Endereco
+Cliente "1" -- "0..3" Empregador
+Cliente "1" -- "0..*" Pedido
+
+Pedido "1" -- "0..1" Contrato
+Pedido "0..1" -- "1" Agente
+
+Contrato <|-- Locacao
+Contrato <|-- Assinatura
+Contrato <|-- Leasing
+
 Contrato "0..1" -- "1" Automovel
+
+Leasing "1" -- "1" ContratoCredito
+Banco "1" -- "0..*" ContratoCredito
+
+Cliente "0..*" -- "0..*" Automovel
+Agente "0..*" -- "0..*" Automovel
+
+Pedido --> StatusPedido
+Pedido --> Parecer
 
 @enduml
