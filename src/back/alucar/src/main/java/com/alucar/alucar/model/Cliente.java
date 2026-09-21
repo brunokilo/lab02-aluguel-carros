@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.alucar.alucar.dto.ClienteDTO;
+import com.alucar.alucar.dto.EnderecoDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -44,11 +45,13 @@ public class Cliente extends Usuario{
         this.rg = cliente.rg();
         this.cpf = cliente.cpf();
         this.profissao = cliente.profissao();
-        this.endereco = cliente.endereco();
+        Endereco endereco = new Endereco();
+        endereco.incorporarDTO(cliente.endereco());
+        this.endereco = endereco;
         this.empregadores = cliente.empregadores();
     }
 
     public ClienteDTO criarDTO(){
-        return new ClienteDTO(super.criarDTObase(), rg, cpf, profissao, endereco, empregadores);
+        return new ClienteDTO(super.criarDTObase(), rg, cpf, profissao, endereco.criarDTO(), empregadores);
     }
 }

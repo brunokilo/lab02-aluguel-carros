@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.alucar.alucar.model.Empregador;
-import com.alucar.alucar.model.Endereco;
 
 import jakarta.validation.constraints.NotBlank;
 
@@ -21,7 +20,7 @@ public record ClienteDTO(
     @NotBlank(message = "A profissão é obrigatória")
     String profissao,
 
-    Endereco endereco,
+    EnderecoDTO endereco,
 
     List<Empregador> empregadores
 ) {}
