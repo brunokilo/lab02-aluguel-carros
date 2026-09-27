@@ -1,5 +1,7 @@
 package com.alucar.alucar.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alucar.alucar.dto.ClienteDTO;
+import com.alucar.alucar.dto.EmpregadorDTO;
+import com.alucar.alucar.dto.EnderecoDTO;
 import com.alucar.alucar.service.ClienteService;
 
 import jakarta.validation.Valid;
@@ -52,6 +56,26 @@ public class ClienteController {
 
         return ResponseEntity.ok(
             clienteService.atualizar(id, dto)
+        );
+    }
+
+    @PutMapping("/{id}/endereco")
+    public ResponseEntity<ClienteDTO> atualizarEndereco(
+            @PathVariable Long id,
+            @Valid @RequestBody EnderecoDTO dto) {
+
+        return ResponseEntity.ok(
+            clienteService.atualizarEndereco(id, dto)
+        );
+    }
+
+    @PutMapping("/{id}/empregadores")
+    public ResponseEntity<ClienteDTO> atualizarEmpregadores(
+            @PathVariable Long id,
+            @RequestBody List<EmpregadorDTO> dto) {
+
+        return ResponseEntity.ok(
+            clienteService.atualizarEmpregadores(id, dto)
         );
     }
 

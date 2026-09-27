@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.alucar.alucar.model.Empregador;
-
 import jakarta.validation.constraints.NotBlank;
 
 public record ClienteDTO(
@@ -22,5 +20,5 @@ public record ClienteDTO(
 
     EnderecoDTO endereco,
 
-    List<Empregador> empregadores
+    List<EmpregadorDTO> empregadores
 ) {}

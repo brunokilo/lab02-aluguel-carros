@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.alucar.alucar.dto.ClienteDTO;
+import com.alucar.alucar.dto.EmpregadorDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -36,7 +37,6 @@ public class Cliente extends Usuario{
     private List<Empregador> empregadores = new LinkedList<>();
     
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    
     private List<Pedido> pedidos = new LinkedList<>();
 
     public void incorporarDTO(ClienteDTO cliente){
@@ -44,13 +44,32 @@ public class Cliente extends Usuario{
         this.rg = cliente.rg();
         this.cpf = cliente.cpf();
         this.profissao = cliente.profissao();
-        Endereco endereco = new Endereco();
-        endereco.incorporarDTO(cliente.endereco());
-        this.endereco = endereco;
-        this.empregadores = cliente.empregadores();
+
+        if (cliente.endereco() != null) {
+            Endereco endereco = this.endereco != null ? this.endereco : new Endereco();
+            endereco.incorporarDTO(cliente.endereco());
+            endereco.setCliente(this);
+            this.endereco = endereco;
+        }
+
+        this.empregadores = cliente.empregadores().stream()
+            .map(dto -> {
+                Empregador emp = new Empregador();
+                emp.setNome(dto.nome());
+                emp.setRendimento(dto.rendimento());
+                emp.setCliente(this);
+                return emp;
+            })
+            .toList();
     }
 
-    public ClienteDTO criarDTO(){
-        return new ClienteDTO(super.criarDTObase(), rg, cpf, profissao, endereco.criarDTO(), empregadores);
+    public ClienteDTO criarDTO() {
+        var enderecoDTO = endereco != null ? endereco.criarDTO() : null;
+
+        List<EmpregadorDTO> empregadoresDTO = empregadores.stream()
+            .map(e -> new EmpregadorDTO(e.getNome(), e.getRendimento()))
+            .toList();
+
+        return new ClienteDTO(super.criarDTObase(), rg, cpf, profissao, enderecoDTO, empregadoresDTO);
     }
 }
