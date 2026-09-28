@@ -73,6 +73,12 @@ public class PedidoService {
                 .map(this::paraDTO);
     }
 
+    // Pedidos ainda não avaliados por nenhum agente — fila de trabalho do agente
+    public Page<PedidoDTO> listarPendentes(Pageable pageable) {
+        return pedidoRepository.findByStatus(StatusPedido.CRIADO, pageable)
+                .map(this::paraDTO);
+    }
+
     public PedidoDTO cancelar(Long pedidoId, Long clienteId) {
         Pedido pedido = buscarDoClienteOuLancar(pedidoId, clienteId);
 
@@ -137,6 +143,7 @@ public class PedidoService {
 
     private PedidoDTO paraDTO(Pedido pedido) {
         Automovel automovel = pedido.getAutomovelDesejado();
+        Cliente cliente = pedido.getCliente();
 
         AutomovelDTO automovelDTO = new AutomovelDTO(
             automovel.getId(),
@@ -152,7 +159,9 @@ public class PedidoService {
             pedido.getDataCriacao(),
             pedido.getStatus(),
             pedido.getParecer(),
-            automovelDTO
+            automovelDTO,
+            cliente.getId(),
+            cliente.getNome()
         );
     }
 }
