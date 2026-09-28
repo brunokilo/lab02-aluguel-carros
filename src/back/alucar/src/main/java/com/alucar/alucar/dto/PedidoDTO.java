@@ -10,5 +10,7 @@ public record PedidoDTO(
     LocalDate dataCriacao,
     StatusPedido status,
     Parecer parecer,
-    AutomovelDTO automovelDesejado
+    AutomovelDTO automovelDesejado,
+    Long clienteId,
+    String clienteNome
 ) {}
