@@ -1,5 +1,7 @@
 package com.alucar.alucar.model;
 
+import com.alucar.alucar.dto.EmpregadorDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,4 +27,14 @@ public class Empregador {
 
     @ManyToOne
     private Cliente cliente;
+
+    public void incorporarDTO(EmpregadorDTO empregador) {
+        this.nome = empregador.nome();
+        this.rendimento = empregador.rendimento();
+        this.cliente = empregador.cliente();
+    }
+
+    public EmpregadorDTO criarDTO() {
+        return new EmpregadorDTO(nome, rendimento, cliente);
+    }
 }

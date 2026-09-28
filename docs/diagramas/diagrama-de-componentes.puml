@@ -1,0 +1,121 @@
+@startuml LocadoraCarros_Componentes
+
+skinparam shadowing false
+skinparam componentStyle uml2
+skinparam linetype ortho
+skinparam defaultTextAlignment center
+skinparam nodesep 60
+skinparam ranksep 80
+skinparam component {
+  BackgroundColor #FEFEFE
+  BorderColor #333333
+}
+skinparam interface {
+  BackgroundColor #FEFEFE
+  BorderColor #333333
+}
+skinparam package {
+  BackgroundColor #F7F7F7
+  BorderColor #999999
+}
+skinparam database {
+  BackgroundColor #FEFEFE
+  BorderColor #333333
+}
+
+actor "Usuário" as Usuario
+
+node "Navegador do Usuário" as Estacao {
+  [Aplicação React] as Spa
+}
+
+node "Servidor Spring Boot" as Servidor {
+
+  package "Camada de Entrada" as Entrada {
+    [Sessão] as Porteiro
+    [Controlador de Acesso] as CtrlAcesso
+    [Controlador de Conta] as CtrlConta
+    [Controlador de Reserva] as CtrlReserva
+    [Controlador de Parecer] as CtrlParecer
+    [Controlador de Acordo] as CtrlAcordo
+  }
+
+  package "Camada de Regras" as Regras {
+    interface "ServicoAcesso" as IServicoAcesso
+    interface "ServicoConta" as IServicoConta
+    interface "ServicoReserva" as IServicoReserva
+    interface "ServicoParecer" as IServicoParecer
+    interface "ServicoAcordo" as IServicoAcordo
+
+    [Gestor de Acesso] as GestorAcesso
+    [Gestor de Conta] as GestorConta
+    [Gestor de Reserva] as GestorReserva
+    [Gestor de Parecer] as GestorParecer
+    [Gestor de Acordo] as GestorAcordo
+    [Gestor de Aviso] as GestorAviso
+  }
+
+  package "Camada de Dados" as Dados {
+    [Contas] as PersistConta
+    [Reservas] as PersistReserva
+    [Acordos] as PersistAcordo
+    [Avisos] as PersistAviso
+    [Parecer] as PersistParecer
+  }
+}
+
+database "PostgreSQL\n(banco: locadora)" as Bd
+
+interface "HTTP / REST" as IHttp
+interface "JDBC" as IJdbc
+
+' ===== Navegador até a aplicação =====
+Usuario --> Spa
+Spa --( IHttp
+IHttp -- Porteiro
+
+' ===== Roteas dos controladores =====
+Porteiro --> CtrlAcesso
+Porteiro --> CtrlConta
+Porteiro --> CtrlReserva
+Porteiro --> CtrlParecer
+Porteiro --> CtrlAcordo
+
+' ===== Interfaces fornecidas pela camada de regras =====
+IServicoAcesso - GestorAcesso
+IServicoConta - GestorConta
+IServicoReserva - GestorReserva
+IServicoParecer - GestorParecer
+IServicoAcordo - GestorAcordo
+
+' ===== Entrada -> Regras =====
+CtrlAcesso --( IServicoAcesso
+CtrlConta --( IServicoConta
+CtrlReserva --( IServicoReserva
+CtrlParecer --( IServicoParecer
+CtrlAcordo --( IServicoAcordo
+
+' ===== Dependências regras =====
+GestorAcesso ..> GestorConta
+GestorReserva ..> GestorConta
+GestorParecer ..> GestorReserva
+GestorParecer ..> GestorAviso
+GestorAcordo ..> GestorReserva
+GestorAcordo ..> GestorAviso
+
+' ===== Conexão regras com dados =====
+GestorConta ..> PersistConta
+GestorReserva ..> PersistReserva
+GestorAcordo ..> PersistAcordo
+GestorAviso ..> PersistAviso
+GestorParecer ..> PersistParecer
+
+' ===== Persistencias =====
+PersistConta ..> IJdbc
+PersistReserva ..> IJdbc
+PersistAcordo ..> IJdbc
+PersistAviso ..> IJdbc
+PersistParecer ..>IJdbc
+IJdbc -- Bd
+
+@enduml
