@@ -1,3 +1,28 @@
+.novo-pedido {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.novo-pedido label {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.novo-pedido .botao-principal {
+  width: auto;
+  white-space: nowrap;
+}
+
+.pedido-acoes {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 .pedidos-tabela {
   width: 100%;
   border-collapse: collapse;
