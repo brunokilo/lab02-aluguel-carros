@@ -7,3 +7,6 @@ export interface AutomovelDTO {
   modelo: string;
   emUso: boolean;
 }
+
+// Dados que a empresa/banco preenche pra cadastrar um carro da própria frota
+export type NovoAutomovelDTO = Omit<AutomovelDTO, "id">;
