@@ -60,6 +60,14 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.cancelar(pedidoId, clienteId));
     }
 
+    // GET /pedidos/pendentes?page=0&size=10 — fila de avaliação do agente
+    @GetMapping("/pedidos/pendentes")
+    public ResponseEntity<Page<PedidoDTO>> listarPendentes(
+            @PageableDefault(size = 10, sort = "dataCriacao") Pageable pageable) {
+
+        return ResponseEntity.ok(pedidoService.listarPendentes(pageable));
+    }
+
     // PUT /pedidos/12/avaliar?agenteId=3  body: "POSITIVO" ou "NEGATIVO"
     @PutMapping("/pedidos/{pedidoId}/avaliar")
     public ResponseEntity<PedidoDTO> avaliar(

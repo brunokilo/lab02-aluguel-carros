@@ -45,6 +45,51 @@
   margin-bottom: 1rem;
 }
 
+.abas {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid #e0e4e8;
+  margin-bottom: 1.5rem;
+}
+
+.abas button {
+  padding: 0.6rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.abas button:hover {
+  color: #334155;
+}
+
+.abas button.aba-ativa {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  font-weight: 600;
+}
+
+.cadastro-tipo {
+  max-width: 640px;
+  margin: 2rem auto 0;
+}
+
+select {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: white;
+}
+
+select:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+
 .navegacao {
   display: flex;
   gap: 0.75rem;

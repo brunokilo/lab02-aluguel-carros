@@ -1,20 +1,26 @@
 package com.alucar.alucar.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.alucar.alucar.dto.AutomovelDTO;
+import com.alucar.alucar.model.Agente;
 import com.alucar.alucar.model.Automovel;
+import com.alucar.alucar.repository.AgenteRepository;
 import com.alucar.alucar.repository.AutomovelRepository;
 
 @Service
 public class AutomovelService {
 
     private final AutomovelRepository automovelRepository;
+    private final AgenteRepository agenteRepository;
 
-    public AutomovelService(AutomovelRepository automovelRepository) {
+    public AutomovelService(AutomovelRepository automovelRepository, AgenteRepository agenteRepository) {
         this.automovelRepository = automovelRepository;
+        this.agenteRepository = agenteRepository;
     }
 
     public AutomovelDTO criar(AutomovelDTO dto) {
@@ -22,6 +28,29 @@ public class AutomovelService {
         aplicarDTO(automovel, dto);
 
         return paraDTO(automovelRepository.save(automovel));
+    }
+
+    // Empresa/banco cadastra um carro da própria frota
+    public AutomovelDTO criarParaAgente(Long agenteId, AutomovelDTO dto) {
+        Agente agente = agenteRepository.findById(agenteId)
+                .orElseThrow(() -> new RuntimeException("Agente não encontrado."));
+
+        Automovel automovel = new Automovel();
+        aplicarDTO(automovel, dto);
+        automovel = automovelRepository.save(automovel);
+
+        agente.getAutomoveis().add(automovel);
+        agenteRepository.save(agente);
+
+        return paraDTO(automovel);
+    }
+
+    // Frota cadastrada por um agente/banco específico
+    public List<AutomovelDTO> listarDoAgente(Long agenteId) {
+        Agente agente = agenteRepository.findById(agenteId)
+                .orElseThrow(() -> new RuntimeException("Agente não encontrado."));
+
+        return agente.getAutomoveis().stream().map(this::paraDTO).toList();
     }
 
     public AutomovelDTO buscarPorId(Long id) {

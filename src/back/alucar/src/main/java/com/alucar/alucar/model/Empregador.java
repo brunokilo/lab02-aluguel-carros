@@ -31,10 +31,9 @@ public class Empregador {
     public void incorporarDTO(EmpregadorDTO empregador) {
         this.nome = empregador.nome();
         this.rendimento = empregador.rendimento();
-        this.cliente = empregador.cliente();
     }
 
     public EmpregadorDTO criarDTO() {
-        return new EmpregadorDTO(nome, rendimento, cliente);
+        return new EmpregadorDTO(nome, rendimento);
     }
 }

@@ -28,10 +28,11 @@ public class Cliente extends Usuario {
     @Column(unique = true)
     private String rg;
 
-    @Column(unique = true, nullable = false, length = 11)
+    // unique, mas sem nullable=false: Agente/Banco compartilham esta tabela
+    // (herança single-table) e não têm CPF, então a coluna precisa aceitar null.
+    @Column(unique = true, length = 11)
     private String cpf;
 
-    @Column(nullable = false)
     private String profissao;
 
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
