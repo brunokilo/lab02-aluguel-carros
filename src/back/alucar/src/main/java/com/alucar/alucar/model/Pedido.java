@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,4 +37,12 @@ public class Pedido {
 
     @ManyToOne
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "automovel_desejado_id", nullable = false)
+    private Automovel automovelDesejado;
+
+    @ManyToOne
+    @JoinColumn(name = "agente_id")
+    private Agente agente;
 }

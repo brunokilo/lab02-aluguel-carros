@@ -1,0 +1,26 @@
+.abas {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid #e0e4e8;
+  margin-bottom: 1.5rem;
+}
+
+.abas button {
+  padding: 0.6rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.abas button:hover {
+  color: #334155;
+}
+
+.abas button.aba-ativa {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  font-weight: 600;
+}

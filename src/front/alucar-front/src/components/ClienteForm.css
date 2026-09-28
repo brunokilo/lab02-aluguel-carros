@@ -1,0 +1,173 @@
+.cliente-form {
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: system-ui, sans-serif;
+  color: #1f2933;
+}
+
+.cliente-form h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.stepper {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  gap: 0.5rem;
+}
+
+.stepper li {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0.25rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  border-bottom: 3px solid #e2e8f0;
+}
+
+.stepper li.ativo {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  font-weight: 600;
+}
+
+.stepper li.concluido {
+  color: #15803d;
+  border-bottom-color: #86efac;
+}
+
+.texto-auxiliar {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 1rem;
+}
+
+.navegacao {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.navegacao .botao-principal,
+.navegacao .botao-secundario {
+  flex: 1;
+  width: auto;
+}
+
+.cliente-form section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.cliente-form h2 {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  color: #334155;
+}
+
+.secao-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contador {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.9rem;
+  flex: 1;
+}
+
+.linha {
+  display: flex;
+  gap: 1rem;
+}
+
+.campo-grande {
+  flex: 2;
+}
+
+input {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+input:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+
+.empregador-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.botao-principal {
+  width: 100%;
+  padding: 0.75rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.botao-principal:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.botao-secundario {
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px dashed #94a3b8;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #334155;
+}
+
+.botao-secundario:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.botao-remover {
+  background: none;
+  border: none;
+  color: #dc2626;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mensagem-erro {
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.mensagem-sucesso {
+  color: #15803d;
+  background: #f0fdf4;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}

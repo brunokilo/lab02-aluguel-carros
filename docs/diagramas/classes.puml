@@ -96,6 +96,7 @@ enum Parecer {
 
 Usuario <|-- Cliente
 Usuario <|-- Agente
+Agente <|-- Banco
 
 Cliente "1" -- "1" Endereco
 Cliente "1" -- "0..3" Empregador

@@ -1,0 +1,36 @@
+.pedidos-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.pedidos-tabela th {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.pedidos-tabela td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.paginacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.paginacao-info {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.paginacao .botao-secundario {
+  width: auto;
+  padding: 0.4rem 1rem;
+}

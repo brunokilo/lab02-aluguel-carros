@@ -23,12 +23,19 @@ public abstract class Usuario {
     @Column(nullable = false)
     protected String nome;
     
-
+    @Column(nullable = false)
+    protected String email;
+    
+    @Column(nullable = false)
+    protected String senha;
+    
     protected void incorporarDTObase(UsuarioDTO usuario){
         this.nome = usuario.nome();
+        this.email = usuario.email();
+        this.senha = usuario.senha();
     }
 
     protected UsuarioDTO criarDTObase(){
-        return new UsuarioDTO(nome);
+        return new UsuarioDTO(nome, email, senha);
     }
 }
