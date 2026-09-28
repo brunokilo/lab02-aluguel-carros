@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../api/authApi";
-import { salvarClienteLogado } from "../api/authStorage";
+import { useAuth } from "../context/AuthContext";
 import "../components/ClienteForm.css";
 
 export function LoginPage() {
   const navigate = useNavigate();
+  const { entrar } = useAuth();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState<string | null>(null);
@@ -17,9 +18,9 @@ export function LoginPage() {
     setEnviando(true);
 
     try {
-      const cliente = await login({ email, senha });
-      salvarClienteLogado(cliente);
-      navigate(`/clientes/${cliente.id}`);
+      const usuario = await login({ email, senha });
+      entrar(usuario);
+      navigate("/");
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Erro ao fazer login");
     } finally {

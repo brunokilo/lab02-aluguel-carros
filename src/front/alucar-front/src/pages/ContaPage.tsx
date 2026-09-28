@@ -4,10 +4,11 @@ import type { ClienteDTO } from "../types/cliente";
 import { buscarClientePorId } from "../api/clienteApi";
 import { EnderecoForm } from "../components/EnderecoForm";
 import { EmpregadoresForm } from "../components/EmpregadoresForm";
+import { PedidosList } from "../components/PedidosList";
 import "../components/ClienteForm.css";
 import "./ContaPage.css";
 
-type Aba = "dados" | "endereco" | "empregadores";
+type Aba = "dados" | "endereco" | "empregadores" | "pedidos";
 
 export function ContaPage() {
   const { id } = useParams<{ id: string }>();
@@ -59,6 +60,13 @@ export function ContaPage() {
         >
           Empregadores ({cliente.empregadores.length}/3)
         </button>
+        <button
+          type="button"
+          className={aba === "pedidos" ? "aba-ativa" : ""}
+          onClick={() => setAba("pedidos")}
+        >
+          Meus pedidos
+        </button>
       </nav>
 
       {aba === "dados" && (
@@ -86,6 +94,8 @@ export function ContaPage() {
           onSalvo={carregarCliente}
         />
       )}
+
+      {aba === "pedidos" && <PedidosList clienteId={clienteId} />}
     </div>
   );
 }

@@ -1,0 +1,61 @@
+.home {
+  max-width: 760px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  font-family: system-ui, sans-serif;
+  text-align: center;
+  color: #1f2933;
+}
+
+.home h1 {
+  font-size: 2.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.home-subtitulo {
+  color: #64748b;
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+}
+
+.home-modalidades {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.modalidade-card {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.modalidade-card h2 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #2563eb;
+}
+
+.modalidade-card p {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.home-aviso {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+}
+
+.home-acoes {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.home-acoes button {
+  padding: 0.7rem 1.5rem;
+}

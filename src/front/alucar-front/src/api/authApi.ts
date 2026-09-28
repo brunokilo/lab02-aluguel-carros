@@ -7,6 +7,7 @@ export interface LoginResponseDTO {
   id: number;
   nome: string;
   email: string;
+  tipo: "CLIENTE" | "AGENTE" | "BANCO";
 }
 
 const BASE_URL = "http://localhost:8080/auth";

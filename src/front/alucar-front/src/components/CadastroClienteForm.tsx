@@ -13,9 +13,9 @@ const clienteVazio: ClienteDTO = {
 };
 
 interface Props {
-  // chamado após o cadastro dar certo, com o id do cliente criado —
-  // útil pra redirecionar pra tela de "completar cadastro" (endereço/empregadores)
-  onCadastrado?: (clienteId: number) => void;
+  // chamado após o cadastro dar certo, com as credenciais usadas —
+  // a página que usa o form pode, por exemplo, fazer login automático
+  onCadastrado?: (credenciais: { email: string; senha: string }) => void;
 }
 
 export function CadastroClienteForm({ onCadastrado }: Props) {
@@ -36,11 +36,10 @@ export function CadastroClienteForm({ onCadastrado }: Props) {
     setEnviando(true);
 
     try {
-      const criado = await criarCliente(cliente);
+      const credenciais = { email: cliente.usuario.email, senha: cliente.usuario.senha };
+      await criarCliente(cliente);
       setCliente(clienteVazio);
-      if (criado.id != null) {
-        onCadastrado?.(criado.id);
-      }
+      onCadastrado?.(credenciais);
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Erro desconhecido ao cadastrar cliente");
     } finally {
