@@ -1,4 +1,4 @@
-import type { PageResponse, PedidoDTO } from "../types/pedido";
+import type { ModalidadeContrato, PageResponse, PedidoDTO } from "../types/pedido";
 
 const API_ROOT = "http://localhost:8080";
 const CLIENTES_URL = `${API_ROOT}/clientes`;
@@ -31,11 +31,15 @@ export async function listarPedidos(
 }
 
 // HU02 — efetuar pedido
-export async function criarPedido(clienteId: number, automovelId: number): Promise<PedidoDTO> {
+export async function criarPedido(
+  clienteId: number,
+  automovelId: number,
+  modalidade: ModalidadeContrato
+): Promise<PedidoDTO> {
   const response = await fetch(`${CLIENTES_URL}/${clienteId}/pedidos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ automovelId }),
+    body: JSON.stringify({ automovelId, modalidade }),
   });
   return tratarResposta<PedidoDTO>(response);
 }
@@ -44,12 +48,13 @@ export async function criarPedido(clienteId: number, automovelId: number): Promi
 export async function alterarPedido(
   pedidoId: number,
   clienteId: number,
-  automovelId: number
+  automovelId: number,
+  modalidade: ModalidadeContrato
 ): Promise<PedidoDTO> {
   const response = await fetch(`${PEDIDOS_URL}/${pedidoId}?clienteId=${clienteId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ automovelId }),
+    body: JSON.stringify({ automovelId, modalidade }),
   });
   return tratarResposta<PedidoDTO>(response);
 }
