@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import type { AutomovelDTO } from "../types/automovel";
+import type { ModalidadeContrato } from "../types/pedido";
+import { ROTULOS_MODALIDADE } from "../types/pedido";
 import { listarAutomoveisDisponiveis } from "../api/automovelApi";
 import { criarPedido } from "../api/pedidoApi";
 import "./ClienteForm.css";
 import "./PedidosList.css";
+
+const MODALIDADES: ModalidadeContrato[] = ["LOCACAO", "ASSINATURA", "LEASING"];
 
 interface Props {
   clienteId: number;
@@ -13,6 +17,7 @@ interface Props {
 export function NovoPedidoForm({ clienteId, onCriado }: Props) {
   const [automoveis, setAutomoveis] = useState<AutomovelDTO[]>([]);
   const [automovelId, setAutomovelId] = useState<number | "">("");
+  const [modalidade, setModalidade] = useState<ModalidadeContrato>("LOCACAO");
   const [carregando, setCarregando] = useState(true);
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
@@ -32,7 +37,7 @@ export function NovoPedidoForm({ clienteId, onCriado }: Props) {
     setEnviando(true);
 
     try {
-      await criarPedido(clienteId, automovelId);
+      await criarPedido(clienteId, automovelId, modalidade);
       setAutomovelId("");
       onCriado?.();
     } catch (e) {
@@ -49,7 +54,7 @@ export function NovoPedidoForm({ clienteId, onCriado }: Props) {
   return (
     <form className="novo-pedido" onSubmit={handleSubmit}>
       <label className="campo-grande">
-        Novo pedido de aluguel
+        Automóvel
         <select
           required
           value={automovelId}
@@ -59,6 +64,17 @@ export function NovoPedidoForm({ clienteId, onCriado }: Props) {
           {automoveis.map((automovel) => (
             <option key={automovel.id} value={automovel.id}>
               {automovel.marca} {automovel.modelo} ({automovel.ano}) — {automovel.placa}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        Modalidade
+        <select value={modalidade} onChange={(e) => setModalidade(e.target.value as ModalidadeContrato)}>
+          {MODALIDADES.map((m) => (
+            <option key={m} value={m}>
+              {ROTULOS_MODALIDADE[m]}
             </option>
           ))}
         </select>

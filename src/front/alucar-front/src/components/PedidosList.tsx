@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { PageResponse, PedidoDTO } from "../types/pedido";
+import { ROTULOS_MODALIDADE } from "../types/pedido";
 import type { AutomovelDTO } from "../types/automovel";
 import { listarPedidos, cancelarPedido, avancarPedido, alterarPedido } from "../api/pedidoApi";
 import { listarAutomoveisDisponiveis } from "../api/automovelApi";
@@ -72,9 +73,11 @@ export function PedidosList({ clienteId }: Props) {
               <tr>
                 <th>#</th>
                 <th>Automóvel</th>
+                <th>Modalidade</th>
                 <th>Data</th>
                 <th>Status</th>
                 <th>Parecer</th>
+                <th>Contrato de crédito</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -93,7 +96,7 @@ export function PedidosList({ clienteId }: Props) {
                           disabled={processando}
                           onChange={(e) =>
                             executarAcao(pedido.id, () =>
-                              alterarPedido(pedido.id, clienteId, Number(e.target.value))
+                              alterarPedido(pedido.id, clienteId, Number(e.target.value), pedido.modalidade)
                             )
                           }
                         >
@@ -107,9 +110,11 @@ export function PedidosList({ clienteId }: Props) {
                         `${pedido.automovelDesejado.marca} ${pedido.automovelDesejado.modelo} — ${pedido.automovelDesejado.placa}`
                       )}
                     </td>
+                    <td>{ROTULOS_MODALIDADE[pedido.modalidade]}</td>
                     <td>{new Date(pedido.dataCriacao).toLocaleDateString("pt-BR")}</td>
                     <td>{pedido.status}</td>
                     <td>{pedido.parecer ?? "—"}</td>
+                    <td>{pedido.numeroContratoCredito ?? "—"}</td>
                     <td className="pedido-acoes">
                       {pedido.status === "CRIADO" && (
                         <>
