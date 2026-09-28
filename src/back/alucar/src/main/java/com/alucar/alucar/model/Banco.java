@@ -20,6 +20,9 @@ public class Banco extends Agente {
     private List<ContratoCredito> contratosCredito = new ArrayList<>();
 
     public boolean aprovarContratoCredito(ContratoCredito contrato) {
-        throw new UnsupportedOperationException("Aguardando implementação de ContratoCredito");
+        contrato.setBanco(this);
+        contrato.setAprovado(true);
+        contratosCredito.add(contrato);
+        return true;
     }
 }
