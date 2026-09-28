@@ -12,21 +12,31 @@ import com.alucar.alucar.model.Cliente;
 import com.alucar.alucar.model.Empregador;
 import com.alucar.alucar.model.Endereco;
 import com.alucar.alucar.repository.ClienteRepository;
+import com.alucar.alucar.repository.UsuarioRepository;
 
 @Service
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ClienteService(ClienteRepository clienteRepository, PasswordEncoder passwordEncoder) {
+    public ClienteService(
+            ClienteRepository clienteRepository,
+            UsuarioRepository usuarioRepository,
+            PasswordEncoder passwordEncoder) {
         this.clienteRepository = clienteRepository;
+        this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     public ClienteDTO criar(ClienteDTO dto) {
 
         validarEmpregadores(dto.empregadores());
+
+        if (usuarioRepository.existsByEmail(dto.usuario().email())) {
+            throw new IllegalStateException("Já existe um usuário cadastrado com este e-mail.");
+        }
 
         Cliente cliente = new Cliente();
         cliente.incorporarDTO(dto);

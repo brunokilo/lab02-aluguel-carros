@@ -1,8 +1,7 @@
 package com.alucar.alucar.dto;
 
-public record LoginResponseDTO(
+public record AgenteDTO(
     Long id,
     String nome,
-    String email,
-    String tipo
+    String email
 ) {}
